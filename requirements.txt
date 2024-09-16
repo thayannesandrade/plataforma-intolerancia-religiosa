@@ -1,0 +1,5 @@
+panda
+matplotlib
+plotly
+geopandas
+dash
