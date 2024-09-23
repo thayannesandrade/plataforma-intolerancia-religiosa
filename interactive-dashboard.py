@@ -4,23 +4,27 @@ import dash_html_components as html
 import pandas as pd
 import plotly.express as px
 
-# Carregar dados
+
 df = pd.read_csv('crimes_intolerancia_tratados.csv')
 
-# Inicializar app Dash
+df_grouped = df.groupby('Estado').size().reset_index(name='quantidade_crime')
+
+
 app = dash.Dash(__name__)
 
-# Layout do app
+
 app.layout = html.Div(children=[
     html.H1(children='Mapa de Crimes de Intolerância Religiosa'),
    
     dcc.Graph(
         id='mapa-crimes',
-        figure=px.choropleth(df,
-                             locations='state',
+        figure=px.choropleth(df_grouped,
+                             locations='Estado',
                              locationmode='country names',
-                             color='cases',
-                             title='Crimes por Estado no Brasil')
+                             color='quantidade_crime',
+                             title='Crimes por Estado no Brasil',
+                             labels={'quantidade_crime': 'Número de Crimes'}
+        )
     )
 ])
 

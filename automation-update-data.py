@@ -1,13 +1,12 @@
 import requests
 import pandas as pd
 
-# Função para buscar dados de uma API pública
 def fetch_data_from_api(api_url):
     response = requests.get(api_url)
    
     if response.status_code == 200:
         data = response.json()
-        df = pd.DataFrame(data['results'])  # Converter dados em DataFrame
+        df = pd.DataFrame(data['results'])
         return df
     else:
         print("Erro ao acessar API")
